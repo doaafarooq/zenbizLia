@@ -12,32 +12,32 @@
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
                         <b-button
-                            @click="modaldata2('Check Reservation', 'success')"
+                            @click="modaldata2('Kontrollera Bokningen', 'success')"
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-door-open"></i>Check Reservation
+                            <i class=""></i>Kontrollera Bokningen
                         </b-button>
                         <b-button
-                            @click="modaldata2('Cancel Reservation', 'danger')"
+                            @click="modaldata2('Avboka Bokningen', 'danger')"
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-window-close"></i>Cancel Reservation
+                            <i class="fas fa-window-close mr-1"></i>Avboka Bokningen
                         </b-button>
                         <b-button
-                            @click="modaldata2('Contact', 'primary')"
+                            @click="modaldata2('Kontakta Oss', 'primary')"
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-phone"></i>Contact
+                            <i class="fas fa-phone mr-1"></i>Kontakta Oss
                         </b-button>
                         <b-button
-                            @click="modaldata2('Administrator', 'dark')"
+                            @click="modaldata2('Administratör', 'dark')"
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-user"></i>Administrator
+                            <i class="fas fa-user mr-1"></i>Administratör
                         </b-button>
                     </b-nav-form>
                 </b-navbar-nav>
@@ -48,7 +48,7 @@
                 <b-form-group
                     v-if="color != 'primary' && color != 'dark'"
                     id="input-group-1"
-                    label="Reservation ID:"
+                    label="Bokning ID:"
                     label-for="input-1"
                 >
                     <b-form-input
@@ -57,21 +57,91 @@
                         v-model="form.reservationid"
                         type="text"
                         required
-                        placeholder="Enter Reservation ID"
+                        placeholder="Ange Bokning ID"
                     ></b-form-input>
                 </b-form-group>
                 <b-form-group
                     v-if="color != 'primary' && color != 'dark'"
                     id="input-group-3"
-                    label="Service:"
+                    label="Tjänster:"
                     label-for="input-3"
                 >
                     <b-form-select id="input-3" v-model="form.service" :options="services" required>
                     </b-form-select>
                 </b-form-group>
                 <!--buradan baslayacan emaille -->
-            </b-form>
 
+                <b-form-group
+                    v-if="color == 'primary'"
+                    id="input-group-1"
+                    label="E-post:"
+                    label-for="input-1"
+                >
+                    <b-form-input
+                        v-if="color == 'primary'"
+                        id="input-1"
+                        v-model="form.email"
+                        type="email"
+                        required
+                        placeholder="Ange E-post"
+                    ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                    v-if="color =='primary'"
+                    id="input-group-1"
+                    label="Meddelande:"
+                    label-for="input-1"
+                >
+                    <b-form-textarea
+                        id="textarea"
+                        v-model="form.message"
+                        placeholder="Ange Meddelande..."
+                        rows="3"
+                        max-rows="6"
+                    ></b-form-textarea>
+                </b-form-group>
+
+                <b-form-group
+                    v-if="color =='dark'"
+                    id="input-group-1"
+                    label="Admin:"
+                    label-for="input-1"
+                >
+                    <b-form-input
+                        v-if="color =='dark'"
+                        id="input-1"
+                        v-model="admininput.user"
+                        type="text"
+                        required
+                        placeholder="Ange Användarnamn"
+                    ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                    v-if="color == 'dark'"
+                    id="input-group-1"
+                    label="Lösenord:"
+                    label-for="input-1"
+                >
+                    <b-form-input
+                        id="input-1"
+                        v-model="admininput.pass"
+                        type="password"
+                        required
+                        placeholder="Ange Lösenord"
+                    ></b-form-input>
+                </b-form-group>
+
+                <b-button class="text-white" block type="submit" :variant="color">{{title}}</b-button>
+            </b-form>
+            <b-card v-if="show && color=='success'" title="Reservation" class="mb-2 mt-4">
+                <b-card-text>
+                    <h6>Reservation id : {{reservation.id}}</h6>
+                    <h6>Name : {{reservation.name}}</h6>
+                    <h6>Email : {{reservation.email}}</h6>
+                    <h6>Day : {{reservation.day}}</h6>
+                    <h6>Price : {{reservation.price}}</h6>
+                </b-card-text>
+            </b-card>
         </b-modal>
     </div>
 </template>
@@ -120,7 +190,7 @@ export default {
             this.show=false;
             evt.preventDefault();
             switch(this.title){
-                case 'Cancel Reservation': 
+                case 'Cancel Reservation': //eller Avboka Bokningen
                     db.collection(this.form.service)
                         .doc(this.form.reservationid)
                         .delete()
@@ -135,7 +205,7 @@ export default {
                             console.log('Error - Bokningen avbokad')
                         });
                         break;
-                case 'Contact':
+                case 'Contact': //eller Kontakta Oss
                     db.collection("messages")
                         .add({message: this.form.message,email:this.form.email})
                         .then(()=>{
@@ -149,7 +219,7 @@ export default {
                             console.log('Error - Meddelande')
                         })
                         break;
-                case 'Administrator':
+                case 'Administrator': //eller administratör
                     if(this.admin.user == this.admininput.user && this.admin.pass == this.admininput.pass){
                         this.$router.push('/admin')
                     }else{
