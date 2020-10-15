@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-   <Footer/>
-   
+  <div class="home">   
+    <Navbar />
+    <Carousel />
+     <Footer/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Footer from "../components/Footer";
+
+import Navbar from '../components/Navbar'
+import Carousel from '../components/Carousel'
+import Footer from '../components/Footer'
 
 export default {
   name: 'Home',
   components: {
-    Footer,
+   Navbar,
+   Carousel,
+   Footer
   }
 }
 </script>
