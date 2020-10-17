@@ -2,23 +2,22 @@
     <div>
         <b-container fluid class="bv-example-row mt-4">
             <b-row>
-                <b-col>
+                <b-col class="mb-3">
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/carousel1.jpg')" class="rounded-0">
+                                <b-card-img :src="require('../assets/programmering.jpg')" class="rounded-0 ">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
-                                <b-card-body class="text-primary" title="Daglig">
+                                <b-card-body class="text-primary centerText"  title="Programmering">
                                     <b-card-text class="text-dark">
-                                        <h2 class="mt-4">Redovisning</h2>
-                                        <h6 class="mt-4">Tjänst 1</h6>
-                                        <p class="mt-4">Tjänst 2</p>
-                                        <p class="mt-4">Tjänst 3</p>
+                                        <h6 class="mt-3 centerText">Tjänst 1</h6>
+                                        <p class="mt-3 centerText">Tjänst 2</p>
+                                        <p class="mt-3 centerText">Tjänst 3</p>
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata('Daglig', 500, 'primary')"
+                                        @click="modaldata('Programmering', '3500 kr per månad', 'primary')"
                                         size="lg"
                                         class="mt-4"
                                         block
@@ -33,23 +32,23 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/carousel1.jpg')" class="rounded-0">
+                                <b-card-img :src="require('../assets/itservis.jpg')" class="rounded-0 ">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
-                                <b-card-body class="text-success" title="Veckovis">
+                                <b-card-body class="text-primary centerText" title="IT Servis">
                                     <b-card-text class="text-dark">
-                                        <h2 class="mt-4">Redovisning</h2>
-                                        <h6 class="mt-4">Tjänst 1</h6>
-                                        <p class="mt-4">Tjänst 2</p>
-                                        <p class="mt-4">Tjänst 3</p>
+                                        
+                                        <h6 class="mt-3 centerText">Tjänst 1</h6>
+                                        <p class="mt-3 centerText">Tjänst 2</p>
+                                        <p class="mt-3 centerText">Tjänst 3</p>
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata('Veckovis', 500, 'success')"
+                                        @click="modaldata('IT Servis', '4500 kr per månad', 'primary')"
                                         size="lg"
                                         class="mt-4"
                                         block
-                                        variant="success"
+                                        variant="primary"
                                     >Boka Tjänst</b-button>
                                 </b-card-body>
                             </b-col>
@@ -57,28 +56,28 @@
                     </b-card>
                 </b-col>
             </b-row>
-            <b-row>
-                <b-col>
+            <b-row class="mt-3">
+                <b-col class="mb-3">
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/carousel1.jpg')" class="rounded-0">
+                                <b-card-img :src="require('../assets/itsäkerhet.jpg')" class="rounded-0 ">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
-                                <b-card-body class="text-warning" title="Månadsvis">
+                                <b-card-body class="text-primary centerText" title="IT Säkerhet">
                                     <b-card-text class="text-dark">
-                                        <h2 class="mt-4">Redovisning</h2>
-                                        <h6 class="mt-4">Tjänst 1</h6>
-                                        <p class="mt-4">Tjänst 2</p>
-                                        <p class="mt-4">Tjänst 3</p>
+                                        
+                                        <h6 class="mt-3 centerText">Tjänst 1</h6>
+                                        <p class="mt-3 centerText">Tjänst 2</p>
+                                        <p class="mt-3 centerText">Tjänst 3</p>
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata('Månadsvis', 800, 'warning')"
+                                        @click="modaldata('IT Säkerhet', '3500 kr per månad', 'primary')"
                                         size="lg"
                                         class="mt-4 text-light"
                                         block
-                                        variant="warning"
+                                        variant="primary"
                                     >Boka Tjänst</b-button>
                                 </b-card-body>
                             </b-col>
@@ -89,23 +88,23 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/carousel1.jpg')" class="rounded-0">
+                                <b-card-img :src="require('../assets/redovisning.jpg')" class="rounded-0 ">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
-                                <b-card-body class="text-dark" title="Periodisk">
+                                <b-card-body class="text-primary centerText" title="Redovisning">
                                     <b-card-text class="text-dark">
-                                        <h2 class="mt-4">Redovisning</h2>
-                                        <h6 class="mt-4">Tjänst 1</h6>
-                                        <p class="mt-4">Tjänst 2</p>
-                                        <p class="mt-4">Tjänst 3</p>
+                                        
+                                        <h6 class="mt-3 centerText">Tjänst 1</h6>
+                                        <p class="mt-3 centerText">Tjänst 2</p>
+                                        <p class="mt-3 centerText">Tjänst 3</p>
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata('Periodisk', 1000, 'dark')"
+                                        @click="modaldata('Redovisning', '4000 kr per månad', 'primary')"
                                         size="lg"
                                         class="mt-4"
                                         block
-                                        variant="dark"
+                                        variant="primary"
                                     >Boka Tjänst</b-button>
                                 </b-card-body>
                             </b-col>
@@ -140,7 +139,7 @@
                         placeholder="Ange Datum"
                     ></b-form-input>
                 </b-form-group>
-                 <b-form-group id="input-group-2" label="Pris per dag:" label-for="input-2">
+                 <b-form-group id="input-group-2" label="Pris av bokningen:" label-for="input-2">
                     <b-form-input id="input-2qa" v-model="form.price" required disabled>
                     </b-form-input>
                 </b-form-group>
@@ -185,7 +184,7 @@ export default {
                     day: this.form.date
                 })
                 .then(d => {
-                    Swal.fire("Toppen!", `Reservation id: ${d.id}`, "success");
+                    Swal.fire("Bokningen har skapats och sparats!", `Reservation id: ${d.id}`, "success");
                     this.$bvModal.hide("my-modal");
                     this.form.email = "";
                     this.form.name = ""
@@ -203,7 +202,7 @@ export default {
 </script>
 
 <style scoped>
-img {
-    height: 300px !important;
+.centerText{
+    text-align: center
 }
 </style>
