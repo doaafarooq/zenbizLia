@@ -30,7 +30,7 @@
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-phone mr-1"></i>Kontakta Oss
+                            <i class="fas fa-envelope mr-1"></i>Kontakta Oss
                         </b-button>
                         <b-button
                             @click="modaldata2('Administratör', 'dark')"
@@ -190,7 +190,7 @@ export default {
             this.show=false;
             evt.preventDefault();
             switch(this.title){
-                case 'Cancel Reservation': //eller Avboka Bokningen
+                case 'Avboka Bokningen': //eller Avboka Bokningen
                     db.collection(this.form.service)
                         .doc(this.form.reservationid)
                         .delete()
@@ -205,7 +205,7 @@ export default {
                             console.log('Error - Bokningen avbokad')
                         });
                         break;
-                case 'Contact': //eller Kontakta Oss
+                case 'Kontakta Oss': //eller Kontakta Oss
                     db.collection("messages")
                         .add({message: this.form.message,email:this.form.email})
                         .then(()=>{
@@ -219,7 +219,7 @@ export default {
                             console.log('Error - Meddelande')
                         })
                         break;
-                case 'Administrator': //eller administratör
+                case 'Administratör': //eller administratör
                     if(this.admin.user == this.admininput.user && this.admin.pass == this.admininput.pass){
                         this.$router.push('/admin')
                     }else{

@@ -21,7 +21,7 @@ require("firebase/functions");
   firebase.initializeApp(firebaseConfig);
 
   const auth=firebase.auth()
-  const db=firebase.firestore
+  const db=firebase.firestore()
   const storage=firebase.storage()
   const functions=firebase.functions()
 

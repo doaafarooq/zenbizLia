@@ -30,7 +30,7 @@ body{
 }
 .container
 {
- position:absolute;
+ 
  bottom: 0;
  margin-bottom: 15px;
   font-size: 16px;
