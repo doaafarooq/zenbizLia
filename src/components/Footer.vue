@@ -9,7 +9,7 @@
 
       <div class="col">Fallhammargatan 1 B</div>
       <div class="col">721 33 Västerås</div>
-       <div class="col"> VAR SOCIAL :
+       <div class="col"> VAR SOCIAL cd:
         
 
        <div class="d-inline-flex p-2 bd-highlight">
