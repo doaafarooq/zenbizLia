@@ -19,6 +19,6 @@ export default {
 
 <style>
 #imageca{
-    height: 80vh !important;
+    height: 70vh !important;
 }
 </style>
