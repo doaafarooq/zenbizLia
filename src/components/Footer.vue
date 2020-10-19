@@ -43,9 +43,15 @@ body{
 .container
 {
  
+<<<<<<< HEAD
  top: 0;
  margin-top: 50px;
   font-size: 20px;
+=======
+ bottom: 0;
+ margin-bottom: 15px;
+  font-size: 16px;
+>>>>>>> 6b4ebc00a9d3f58f3fefbad9210f5e3c6331779e
   font-style:initial;
   color: white;
   

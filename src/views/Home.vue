@@ -2,7 +2,8 @@
   <div class="home">   
     <Navbar />
     <Carousel />
-     <Footer/>
+    <Service />
+    <Footer />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 
 import Navbar from '../components/Navbar'
 import Carousel from '../components/Carousel'
+import Service from '../components/Service'
 import Footer from '../components/Footer'
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
    Navbar,
    Carousel,
+   Service,
    Footer
   }
 }

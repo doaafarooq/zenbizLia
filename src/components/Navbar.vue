@@ -30,7 +30,7 @@
                             size="sm"
                             class="my-2 mr-2 my-sm-0"
                         >
-                            <i class="fas fa-phone mr-1"></i>Kontakta Oss
+                            <i class="fas fa-envelope mr-1"></i>Kontakta Oss
                         </b-button>
                         <b-button
                             @click="modaldata2('Administratör', 'dark')"
@@ -69,7 +69,7 @@
                     <b-form-select id="input-3" v-model="form.service" :options="services" required>
                     </b-form-select>
                 </b-form-group>
-                <!--buradan baslayacan emaille -->
+               
 
                 <b-form-group
                     v-if="color == 'primary'"
@@ -136,10 +136,10 @@
             <b-card v-if="show && color=='success'" title="Reservation" class="mb-2 mt-4">
                 <b-card-text>
                     <h6>Reservation id : {{reservation.id}}</h6>
-                    <h6>Name : {{reservation.name}}</h6>
-                    <h6>Email : {{reservation.email}}</h6>
-                    <h6>Day : {{reservation.day}}</h6>
-                    <h6>Price : {{reservation.price}}</h6>
+                    <h6>Namn : {{reservation.name}}</h6>
+                    <h6>E-post : {{reservation.email}}</h6>
+                    <h6>Dag : {{reservation.day}}</h6>
+                    <h6>Pris : {{reservation.price}}</h6>
                 </b-card-text>
             </b-card>
         </b-modal>
@@ -160,10 +160,10 @@ export default {
             },
             services:[
                 {text:"Välj en", value:null},
-                "Daglig",
-                "Veckovis",
-                "Månadsvis",
-                "Periodisk"
+                "Programmering",
+                "IT Servis",
+                "IT Säkerhet",
+                "Redovisning"
             ],
             color: "",
             title: "",
@@ -190,7 +190,7 @@ export default {
             this.show=false;
             evt.preventDefault();
             switch(this.title){
-                case 'Cancel Reservation': //eller Avboka Bokningen
+                case 'Avboka Bokningen': //eller Avboka Bokningen
                     db.collection(this.form.service)
                         .doc(this.form.reservationid)
                         .delete()
@@ -205,7 +205,7 @@ export default {
                             console.log('Error - Bokningen avbokad')
                         });
                         break;
-                case 'Contact': //eller Kontakta Oss
+                case 'Kontakta Oss': //eller Kontakta Oss
                     db.collection("messages")
                         .add({message: this.form.message,email:this.form.email})
                         .then(()=>{
@@ -219,7 +219,7 @@ export default {
                             console.log('Error - Meddelande')
                         })
                         break;
-                case 'Administrator': //eller administratör
+                case 'Administratör': //eller administratör
                     if(this.admin.user == this.admininput.user && this.admin.pass == this.admininput.pass){
                         this.$router.push('/admin')
                     }else{
