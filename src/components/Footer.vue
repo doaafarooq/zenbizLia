@@ -1,22 +1,33 @@
 <template>
+<div>
   <div class="container">
     <div class="row row-cols-2">
       <div class="col">KONTAKTA OSS</div>
       <div class="col">021-12 80 00</div>
       <div class="col">info@zenbiz.se</div>
+ 
+
       <div class="col">Fallhammargatan 1 B</div>
       <div class="col">721 33 Västerås</div>
-       <div class="col"> VAR SOCIAL
-    
+       <div class="col"> VAR SOCIAL cd:
+        
 
-<div class="d-inline-flex p-2 bd-highlight">
+       <div class="d-inline-flex p-2 bd-highlight">
     
-    <div class="col-sm"><i class="fab fa-instagram"></i></div>
-    <div class="col-sm"> <i class="fab fa-facebook-square"></i></div>
+       <div class="col-sm"><i class="fab fa-instagram"></i></div>
+       <div class="col-sm"> <i class="fab fa-facebook-square"></i></div>
+     <div class="col-sm"> <i class="fab fa-linkedin"></i></div>
+      
+  </div>
+       </div> 
+
+    
+  </div>
+  <div   class="text-center">
+<p >  © Zenbiz Group AB. Alla rättigheter reserverade.</p>
+  </div>
   </div>
 </div>
-  </div>
-  </div>
 </template>
 <script>
 export default {
@@ -25,22 +36,40 @@ export default {
 <style>
 body{
  background-color: #343a40 !important;
- height: 5rem;
- line-height: 2.5;
+
+ height: 200px;
+ line-height: 4px;
 }
 .container
 {
  
+<<<<<<< HEAD
+ top: 0;
+ margin-top: 50px;
+  font-size: 20px;
+=======
  bottom: 0;
  margin-bottom: 15px;
   font-size: 16px;
+>>>>>>> 6b4ebc00a9d3f58f3fefbad9210f5e3c6331779e
   font-style:initial;
-  color: orange;
+  color: white;
   
 }
 .col-sm
 {
   display: inline;
 }
+.text-center
+{
+  left: 0;
+  margin-left: 550px;
+  bottom: 0;
+  margin-bottom:-40px;
+  position: absolute;
+   
+   color: orange;
+}
+
 
 </style>
