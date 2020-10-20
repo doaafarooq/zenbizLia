@@ -176,7 +176,7 @@ export default {
                 price: ""
             },
             admin: {
-                user: "Elvin",
+                user: "alaa",
                 pass: '1234567890'
             },
             admininput:{
