@@ -1,6 +1,7 @@
 <template>
-  <div id="app">   
-    <router-view/>  
+  <div id="app">
+ <router-view/>  
+
   </div>
 </template>
 <script>
@@ -17,5 +18,4 @@ export default {
 body{
   padding-right: 0px !important;
 }
-
 </style>
