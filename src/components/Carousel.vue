@@ -21,11 +21,8 @@ export default {
 </script>
 
 <style>
-<<<<<<< HEAD
 #imageca{
     height: 70vh !important;
 }
-=======
 
->>>>>>> 6b4ebc00a9d3f58f3fefbad9210f5e3c6331779e
 </style>

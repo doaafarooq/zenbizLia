@@ -44,7 +44,7 @@
             </b-collapse>
         </b-navbar>
         <b-modal hide-footer id="my-modal2" :title="title">
-            <b-form @submit="onSubmit2">
+            <b-form @submit="onSubmit2" @submit.prevent="sendEmail">
                 <b-form-group
                     v-if="color != 'primary' && color != 'dark'"
                     id="input-group-1"
@@ -71,7 +71,7 @@
                 </b-form-group>
                
 
-                <b-form-group
+                <b-form-group 
                     v-if="color == 'primary'"
                     id="input-group-1"
                     label="E-post:"
@@ -83,6 +83,7 @@
                         v-model="form.email"
                         type="email"
                         required
+                        name="email"
                         placeholder="Ange E-post"
                     ></b-form-input>
                 </b-form-group>
@@ -98,6 +99,7 @@
                         placeholder="Ange Meddelande..."
                         rows="3"
                         max-rows="6"
+                        name="message"
                     ></b-form-textarea>
                 </b-form-group>
 
@@ -149,6 +151,8 @@
 <script>
 import {db} from '../firebase';
 import Swal from 'sweetalert2';
+import emailjs from 'emailjs-com';
+
 export default {
     data() {
         return {
@@ -186,6 +190,19 @@ export default {
         }
     },
     methods: {
+
+        sendEmail: (e) => {
+      emailjs.sendForm('gmail', 'template_ytz51qg', e.target, 'user_1MQXW3ydVjgKS3jeUlZUd')
+        .then((result) => {
+            console.log('SUCCESS!', result.status, result.text);
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+    },
+
+
+
+
         onSubmit2(evt) {
             this.show=false;
             evt.preventDefault();
