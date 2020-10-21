@@ -147,13 +147,18 @@
                 </b-button>
             </b-form>
         </b-modal>
+        <newservice />
     </div>
 </template>
 
 <script>
 import { db } from "../firebase";
 import Swal from "sweetalert2";
+import newservice from "../components/newservice"
 export default {
+    components:{
+        newservice
+    },
     data(){
         return {
             form: {

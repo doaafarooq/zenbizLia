@@ -1,6 +1,7 @@
 <template>
-<div >
-    <b-navbar toggleable="lg" >
+<div  class="container text-white">
+    <div>
+        <b-navbar  >
         <b-navbar-brand href="#">
           <i class="logo">Zenbiz</i>
 
@@ -17,7 +18,6 @@
                         </b-button>
                     </router-link>
 
-                    
                 </b-nav-form>
 
             </b-navbar-nav>
@@ -25,12 +25,16 @@
         </b-collapse>
 
     </b-navbar>
+    </div>
+    
+    <todo />
+
     <b-container fluid class="bv-example-row mt-4">
        
-            <div>
-                                <h2>Programmering</h2>
-                               
-                                <b-table :fields="fields" bordered striped hover :items="Programmering">
+           <div class="py-2" >
+                                <h2 class="text-white">Programmering</h2>
+                                
+                                <b-table :fields="fields" bordered striped hover :items="Programmering" class="text-white">
                                     <template v-slot:cell(delete)= "row"> 
                                         <b-button size ="md" variant ="danger" block @click="deletekey('Programmering', row.item.id)">delete
                                         </b-button>
@@ -38,21 +42,21 @@
 
                                 </b-table>
             </div>
-            <div>
-                                <h2>IT SÄKERHET</h2>
+            <div class="py-2" >
+                                <h2 >IT SÄKERHET</h2>
                                 
-                                <b-table :fields="fields" bordered striped hover :items="ITSäkerhet">
+                                <b-table :fields="fields" bordered striped hover :items="ITSäkerhet" class="text-white">
                                     <template v-slot:cell(delete)= "row"> 
-                                        <b-button size ="md" variant ="danger" block @click="deletekey('ITSäkerhet',row.item.id)">delete
+                                        <b-button size ="md" variant ="danger" block @click="deletekey('ITSäkerhet', row.item.id)">delete
                                         </b-button>
                                     </template>
 
                                 </b-table>
             </div>
-            <div >
-                                <h2>Redovisning</h2>
+            <div class="py-2" >
+                                <h2 class="text-white">Redovisning</h2>
                                 
-                                <b-table :fields="fields" bordered striped hover :items="Redovisning">
+                                <b-table :fields="fields" bordered striped hover :items="Redovisning" class="text-white">
                                     <template v-slot:cell(delete)= "row"> 
                                         <b-button size ="md" variant ="danger" block @click="deletekey('Redovisning', row.item.id)">delete
                                         </b-button>
@@ -61,9 +65,9 @@
                                 </b-table>
             </div>
              <div>
-                                <h2>clients</h2>
+                                <h2 >clients</h2>
                                 
-                                <b-table :fields="fields" bordered striped hover :items="clients">
+                                <b-table :fields="fields" bordered striped hover :items="clients" class="text-white">
                                     <template v-slot:cell(delete)= "row"> 
                                         <b-button size ="md" variant ="danger" block @click="deletekey('clients', row.item.id)">delete
                                         </b-button>
@@ -71,26 +75,24 @@
 
                                 </b-table>
             </div>
-            
-       
-           
-           
-           
-
-
-           
-     
+          
     </b-container>
+  
 </div>
   
 </template>
 
 <script>
 import {db} from "@/firebase"
+import todo from "../components/todo"
 export default {
+    components: {
+     todo
+  },
+
 data(){
-    return{
-      Programmering :[],
+    return{ 
+      Programmering:[],
         ITServis : [],
         ITSäkerhet:[],
         Redovisning:[],
@@ -175,7 +177,7 @@ data(){
     }
 },
 created(){
-    db.collection('Programmering')
+  db.collection('Programmering')
     .onSnapshot((querySnapshot) => {
         this.Programmering =[];
         querySnapshot.forEach((doc)=>{
@@ -226,9 +228,29 @@ methods:{
         })
     }
 }
+
+
+
 }
 </script>
 
 <style>
+
+
+.xHolder {
+	padding-top: .4rem;
+	color: #EF5753;
+	font-size: 2rem;
+	transition-duration: .5s;
+}
+
+.xHolder i:hover {
+	transition-duration: .5s;
+	color: red;
+	transform: rotate(90deg);
+	font-size: 2.5rem;
+	cursor: pointer;
+}
+
 
 </style>
