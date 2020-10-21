@@ -43,6 +43,13 @@ body{
 }
 .container
 {
+
+  top: 0;
+  margin-top: 50px;
+  font-size: 20px;
+  bottom: 0;
+  margin-bottom: 15px;
+
  
  bottom: 0;
  margin-bottom: 15px;
