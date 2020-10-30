@@ -17,7 +17,7 @@
                                         <p class="mt-3 centerText">Tjänst 3</p>
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata('{{ToDo.name}}', '3500 kr per månad', 'primary')"
+                                        @click="modaldata1(ToDo.name, '3500 kr per månad', 'primary')"
                                         size="lg"
                                         class="mt-4"
                                         block
@@ -29,7 +29,7 @@
                          </b-card>
                 </b-col>
      </b-row>
-      <b-modal hide-footer id="my-modal" :title="form.service">
+      <b-modal hide-footer id="my-modal1" :title="form.service">
             <b-form @submit="onSubmit">
                 <b-form-group id="input-group-1" label="Namn:" label-for="input-1">
                     <b-form-input
@@ -105,15 +105,14 @@ methods:{
         if(this.newItem){
             await db.collection("ToDos").add({ name : this.newItem });
             this.newItem = "";
-            console.log(newItem);
         }
     },
     deleteToDo(id){
         db.collection("ToDos").doc(id).delete();
     },
     
-        modaldata(service, price, color) {
-            this.$bvModal.show("my-modal");
+        modaldata1( service, price, color) {
+            this.$bvModal.show("my-modal1");
             this.form.service = service;
             this.color = color;
             this.form.price = price;
@@ -136,7 +135,7 @@ methods:{
                 })
                 .then(d => {
                     Swal.fire("Bokningen har skapats och sparats!", `Reservation id: ${d.id}`, "success");
-                    this.$bvModal.hide("my-modal");
+                    this.$bvModal.hide("my-modal1");
                     this.form.email = "";
                     this.form.name = ""
                 });

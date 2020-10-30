@@ -47,7 +47,7 @@ methods:{
         if(this.newItem){
             await db.collection("ToDos").add({ name : this.newItem });
             this.newItem = "";
-            console.log(newItem);
+           
         }
     },
     deleteToDo(id){
