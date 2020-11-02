@@ -2,7 +2,10 @@
   <div class="container text-white" >
       <div  class=" d-flex justify-content-between  py-3">
           <div class="">
-              <input class="border-0 rounded-pill bg-light justify-content-center" placeholder="New Todo"  v-model="newItem" @keyup.enter="addItem">
+              <input class="border-0 rounded-pill bg-light justify-content-center" placeholder="New Todo"  v-model="newItem" >
+            <input class="border-0 rounded-pill bg-light justify-content-center" placeholder="New Toprice"  v-model="newPrice" >
+                        <input class="border-0 rounded-pill bg-light justify-content-center" placeholder="New ToDes"  v-model="newDes" >
+           
           </div>
           <div class="">
               <button class="text-warning border-0 px-4 rounded-pill bg-light" @click="addItem"> Add </button>
@@ -11,7 +14,7 @@
       </div>
       <div  class="d-flex justify-content-between  py-3 border p-2" v-for=" ToDo in ToDos" :key="ToDo.id">
          
-              <div class=""> {{ ToDo.name }}</div>
+              <div class=""> {{ ToDo.name }} ,  {{ ToDo.price }}  </div>
               <div class="">
                   <button class="btn-danger" @click="deleteToDo(ToDo.id)">delete</button>
               </div>
@@ -28,6 +31,10 @@ data(){
     return{
         ToDos:[],
         newItem:"",
+        newPrice:"",
+        newDes:""
+    
+       
     }
 },
 created(){
@@ -44,11 +51,16 @@ created(){
 },
 methods:{
    async addItem(){
-        if(this.newItem){
-            await db.collection("ToDos").add({ name : this.newItem });
+        if(this.newItem )
+            await db.collection("ToDos").add({ name : this.newItem, price : this.newPrice , des: this.newDes});
             this.newItem = "";
+            this.newPrice = "";
+            this.newDes ="";
            
-        }
+           
+       
+           
+        
     },
     deleteToDo(id){
         db.collection("ToDos").doc(id).delete();

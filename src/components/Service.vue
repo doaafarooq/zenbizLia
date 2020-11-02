@@ -166,7 +166,8 @@ export default {
                 name: "",
                 service: "",
                 price: "",
-                date: ""
+                date: "",
+               
             },
             color: ""
         };
@@ -178,7 +179,8 @@ export default {
             db.collection("clients")
             .add({
                 name: this.form.name,
-                email: this.form.email
+                email: this.form.email,
+              
             })
             .then(docRef => {
                 db.collection(this.form.service)

@@ -12,12 +12,11 @@
                                 <b-card-body class="text-primary centerText"  >
                                     <h2> {{ ToDo.name }}</h2>
                                     <b-card-text class="text-dark">
-                                        <h6 class="mt-3 centerText">Tjänst 1</h6>
-                                        <p class="mt-3 centerText">Tjänst 2</p>
-                                        <p class="mt-3 centerText">Tjänst 3</p>
+                                        <h2 class="mt-3 centerText"> {{ ToDo.des }}</h2>
+   
                                     </b-card-text>
                                     <b-button
-                                        @click="modaldata1(ToDo.name, '3500 kr per månad', 'primary')"
+                                        @click="modaldata1(ToDo.name, ToDo.price , 'primary')"
                                         size="lg"
                                         class="mt-4"
                                         block
@@ -76,6 +75,9 @@ data(){
     return{
         ToDos:[],
         newItem:"",
+        newPrice:"",
+         newDes:"",
+       
          form: {
                 email: "",
                 name: "",
@@ -103,8 +105,10 @@ created(){
 methods:{
    async addItem(){
         if(this.newItem){
-            await db.collection("ToDos").add({ name : this.newItem });
+            await db.collection("ToDos").add({ name : this.newItem, price : this.newPrice , des: this.newDes});
             this.newItem = "";
+            this.newPrice = "";
+             this.newDes ="";
         }
     },
     deleteToDo(id){
@@ -123,7 +127,9 @@ methods:{
             db.collection("clients")
             .add({
                 name: this.form.name,
-                email: this.form.email
+                email: this.form.email,
+                date: this.form.date,
+                service: this.form.service
             })
             .then(docRef => {
                 db.collection(this.form.service)
