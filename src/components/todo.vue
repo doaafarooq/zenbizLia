@@ -47,7 +47,6 @@ methods:{
         if(this.newItem){
             await db.collection("ToDos").add({ name : this.newItem });
             this.newItem = "";
-           
         }
     },
     deleteToDo(id){
