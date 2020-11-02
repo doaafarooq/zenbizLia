@@ -56,18 +56,14 @@ methods:{
             this.newItem = "";
             this.newPrice = "";
             this.newDes ="";
-           
-           
-       
-           
-        
+        }
     },
     deleteToDo(id){
         db.collection("ToDos").doc(id).delete();
     },
     
 
-},
+
 firestore: {
     ToDos: db.collection("ToDos")
 },

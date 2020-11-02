@@ -192,7 +192,7 @@ export default {
     methods: {
 
         sendEmail: (e) => {
-      emailjs.sendForm('gmail', 'template_ytz51qg', e.target, 'user_1MQXW3ydVjgKS3jeUlZUd')
+      emailjs.sendForm('gmai', 'template_ytz51qg', e.target, 'user_1MQXW3ydVjgKS3jeUlZUd')
         .then((result) => {
             console.log('SUCCESS!', result.status, result.text);
         }, (error) => {
