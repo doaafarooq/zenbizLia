@@ -4,6 +4,7 @@ require("firebase/auth");
 require("firebase/firestore");
 require("firebase/storage");
 require("firebase/functions");
+require("firebase/database");
 
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -23,11 +24,13 @@ require("firebase/functions");
   const auth=firebase.auth()
   const db=firebase.firestore()
   const storage=firebase.storage()
+  const fb = firebase.database()
   const functions=firebase.functions()
 
   export{
       firebase,
       auth,
+      fb,
       db,
       storage,
       functions
