@@ -19,12 +19,12 @@ require("firebase/database");
     measurementId: "G-0JHPC1RR08"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  const fb= firebase.initializeApp(firebaseConfig);
 
   const auth=firebase.auth()
   const db=firebase.firestore()
   const storage=firebase.storage()
-  const fb = firebase.database()
+ 
   const functions=firebase.functions()
 
   export{
