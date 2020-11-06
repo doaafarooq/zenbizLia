@@ -60,8 +60,8 @@ export default {
       newItem: "",
       newPrice: "",
       newDes: "",
-     image : "",
-     
+      image : [],
+      
     };
   },
   created() {
@@ -75,10 +75,10 @@ export default {
     });
   },
   methods: {
-       previewImage(e) {
+      previewImage  (e) {
          let file = e.target.files[0];
          var storageRef = fb.storage().ref('PhotoGallery'+file.name);
-      let uploadTask =   storageRef.put(file);
+     let uploadTask = storageRef.put(file);
        uploadTask.on('state_changed',function()  {
         
      }, () => {
@@ -86,15 +86,14 @@ export default {
        }, () =>{
              // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             this.image = downloadURL;
-              
-            this.ToDos.image.push(downloadURL);
+            this.ToDo.image.push(downloadURL)           
          console.log('File available at', downloadURL);
            });
        });
 
-         console.log(e.target.files[0])
+       
   },
  
     async addItem() {
@@ -102,13 +101,19 @@ export default {
       if (this.newItem)
         await db
           .collection("ToDos")
-          .add({ name: this.newItem, price: this.newPrice, des: this.newDes , img:this.image });
+          .add(
+            { name: this.newItem,
+              price: this.newPrice, 
+              des: this.newDes ,
+              img : this.image});
+              console.log(this.image)
            
       this.newItem = "";
       this.newPrice = "";
       this.newDes = "";
-      this.image = null ;
-      console.log(this.image )
+      this.image = "";
+     
+     
     },
   },
   deleteToDo(id) {
@@ -118,7 +123,7 @@ export default {
   firestore: {
     ToDos: db.collection("ToDos"),
   },
- 
+
 }
 </script>
 
