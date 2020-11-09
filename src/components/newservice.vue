@@ -1,11 +1,12 @@
 <template>
   <div>
+    <b-container fluid class="bv-example-row mt-4">
       <b-row>
                 <b-col class="mb-3">
                     <b-card no-body class="overflow-hidden">
-                        <b-row no-gutters  v-for=" ToDo in ToDos" :key="ToDo.id">
-                            <b-col md="6">
-                                <b-card-img :src="require('../assets/programmering.jpg')" class="rounded-0 ">
+                        <b-row no-gutters  v-for=" ToDo in New" :key="ToDo.id">
+                            <b-col md="2">
+                                <b-card-img :src="ToDo.image" class="rounded-0 ">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6" >
@@ -15,20 +16,21 @@
                                         <h2 class="mt-3 centerText"> {{ ToDo.des }}</h2>
    
                                     </b-card-text>
-                                    <b-button
+                                    <button
                                         @click="modaldata1(ToDo.name, ToDo.price , 'primary')"
-                                        size="lg"
-                                        class="mt-4"
+                                        size="sm"
+                                        class="border-0 text-white bg-primary border-rounded px-2"
                                         block
                                         variant="primary"
-                                    >Boka Tjänst</b-button>
+                                    >Boka Tjänst</button>
                                 </b-card-body>
                             </b-col>
                         </b-row>
                          </b-card>
                 </b-col>
      </b-row>
-      <b-modal hide-footer id="my-modal1" :title="form.service">
+    </b-container>
+    <b-modal hide-footer id="my-modal1" :title="form.service">
             <b-form @submit="onSubmit">
                 <b-form-group id="input-group-1" label="Namn:" label-for="input-1">
                     <b-form-input
@@ -62,21 +64,25 @@
                 </b-button>
             </b-form>
         </b-modal>
+   
 
   </div>
 </template>
 
 <script>
-import {db} from "../firebase"
+import {db , fb} from "../firebase"
 
 import Swal from "sweetalert2";
 export default {
 data(){
     return{
-        ToDos:[],
-        newItem:"",
-        newPrice:"",
-         newDes:"",
+      New:[],
+      ToDo:{
+      name: "",
+      price: "",
+      des: "",
+      image :null
+      },
        
          form: {
                 email: "",
@@ -91,29 +97,77 @@ data(){
 
 
 created(){
-  db.collection('ToDos')
+  db.collection('New')
     .onSnapshot((querySnapshot) => {
-        this.ToDos =[];
+        this.New =[];
         querySnapshot.forEach((doc)=>{
             var x= doc.data()
             x.id=doc.id
-            this.ToDos.push(x);
+            this.New.push(x);
         });
       
     });
 },
 methods:{
-   async addItem(){
-        if(this.newItem){
-            await db.collection("ToDos").add({ name : this.newItem, price : this.newPrice , des: this.newDes});
-            this.newItem = "";
-            this.newPrice = "";
-             this.newDes ="";
-        }
+   created(){
+  db.collection('New')
+    .onSnapshot((querySnapshot) => {
+        this.New =[];
+        querySnapshot.forEach((doc)=>{
+            var x= doc.data()
+            x.id=doc.id
+            this.New.push(x);
+        });
+      
+    });
+},
+ 
+  methods: {
+     deleteToDo(id) {
+    db.collection("New").doc(id).delete();
+  },
+      previewImage  (e) {
+         let file = e.target.files[0];
+         var storageRef = fb.storage().ref('PhotoGallery'+file.name);
+     let uploadTask = storageRef.put(file);
+       uploadTask.on('state_changed',function()  {
+        
+     }, () => {
+          // Handle unsuccessful uploads
+       }, () =>{
+             // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.ToDo.image = downloadURL; 
+                 
+         console.log('File available at', downloadURL);
+           });
+       });
+
+       
+  },
+ 
+   async addItem() {
+      if(this.ToDo){
+  
+     db.collection("New").add(this.ToDo)
+     .then(function(docRef){
+       console.log("document written with Id ", docRef.id)
+       this.ToDo = "";
+    
+     
+     })
+      .catch(function(error){
+       console.log("document written with Id ", error)
+     })
+      }   
     },
-    deleteToDo(id){
-        db.collection("ToDos").doc(id).delete();
-    },
+      
+    
+  },
+  firestore: {
+    New: db.collection("New"),
+  },
     
         modaldata1( service, price, color) {
             this.$bvModal.show("my-modal1");

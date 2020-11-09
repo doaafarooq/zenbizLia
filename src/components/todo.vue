@@ -1,89 +1,102 @@
 <template>
   <div class="container text-white">
-    <form class="hei container ">
+    <form class="hei container " @submit.prevent="addItem">
       <div class="d-flex flex-column">
         <input
           class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New Todo"
           v-model="ToDo.name"
+          required
         />
         <input
           class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New Toprice"
           v-model="ToDo.price"
+          required
         />
         <input
           class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New ToDes"
           v-model="ToDo.des"
+          required
         />
            <input
           type="file"
           ref="input1"
           @change="previewImage"
           accept="image/*"
+          required
+        
         />
-             <div v-if="ToDo.image != null ">
+             <div v-if=" ToDo.image != null">
                 <img class="preview" height="268" width="356" :src="ToDo.image">
                
-               </div> 
+             </div> 
                 
       </div>
       <div class=" mb-4">
         <button
           class="text-white border-0 py-2 border-rounded container back"
-          @click="addItem"
+         type="submit"
         >
           Add
         </button>
       </div>
     </form>
-    <div class="container">
-        <div
-      class="d-flex justify-content-between  py-3 border p-2"
-      v-for="ToDo in New"
-      :key="ToDo.id"
-     >
-        <div class="">{{ ToDo.name }} , {{ ToDo.price }}</div>
- 
-        <div class="">
-           <button class="btn-danger" @click="deleteToDo(ToDo.id)">delete</button>
-        </div>
-    </div>
-    </div>
+    <div class="container mb-2 ">
+                        <div class="row d-flex bg-white"  v-for=" ToDo in New" :key="ToDo.id" style="margin-bottom:50px; ">
+                            <div class="col-md-4 col-lg-4 col-sm-4" >
+                                <img :src="ToDo.image"  width="300px" height="400px">
+                               
+                            </div>
+                            <div class="col-md-8 col-lg-8 col-sm-8" >
+                                <div class="color centerText mt-2"  >
+                                    <h2> {{ ToDo.name }}</h2>
+                                   
+                                        <h2 class="mt-3 centerText"> {{ ToDo.des }}</h2>
+                                           <div class="">
+                                              <button class=" text-white border-0 border-rounded px-2 back" @click="deleteToDo(ToDo.id)">delete</button>
+                                           </div> 
+                                </div>
+                            </div>
+                        </div>
+              </div>  
   </div>
+   
 </template>
 
 <script>
-import { db, fb} from "../firebase";
+import { db , fb} from "../firebase";
 export default {
   data() {
-    return {
-      New: [],
+    return { 
+      New:[],
       ToDo:{
       name: "",
       price: "",
       des: "",
-      image :""
+      image :null
       },
-   
-   
-     
-
+  
     };
   },
-  created() {
-    db.collection("New").onSnapshot((querySnapshot) => {
-      this.New = [];
-      querySnapshot.forEach((doc) => {
-        var x = doc.data();
-        x.id = doc.id;
-        this.New.push(x);
-       
-      });
+  created(){
+  db.collection('New')
+    .onSnapshot((querySnapshot) => {
+        this.New =[];
+        querySnapshot.forEach((doc)=>{
+            var x= doc.data()
+            x.id=doc.id
+            this.New.push(x);
+        });
+      
     });
-  },
+},
+ 
   methods: {
+     deleteToDo(id) {
+    db.collection("New").doc(id).delete();
+  },
       previewImage  (e) {
          let file = e.target.files[0];
          var storageRef = fb.storage().ref('PhotoGallery'+file.name);
@@ -105,24 +118,30 @@ export default {
        
   },
  
-    async addItem() {
+   async addItem() {
+      if(this.ToDo){
+  
+     db.collection("New").add(this.ToDo)
+     .then(function(docRef){
+       console.log("document written with Id ", docRef.id)
+         this.ToDo = {
+               name: "",
+               price: "",
+               des: "",
+               image:null
+    };
     
-     db.collection("New").add(this.ToDo);
-     //  db
-       //   .collection("New")
-       //   .add({ name: this.name, price: this.price, des: this.des , image :this.image });
-           
-     // this.name = "";
-     // this.price = "";
-     // this.des= "";
-     // this.image = "" ;
-      
+     })
+      .catch(function(error){
+       console.log("document written with Id ", error)
+     })
+      }   
     },
       
     
   },
   deleteToDo(id) {
-    db.collection("New").doc(id).delete();
+    db.collection("New").docRef(id).delete();
   },
 
   firestore: {
@@ -130,6 +149,7 @@ export default {
   },
 
 }
+
 </script>
 
 <style>
@@ -143,5 +163,8 @@ export default {
 }
 .back{
   background-color:orange;
+}
+.color{
+  color:orange;
 }
 </style>
