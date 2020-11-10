@@ -11,6 +11,7 @@
         <input
           class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New Toprice"
+          type="number"
           v-model="ToDo.price"
           required
         />
@@ -26,8 +27,9 @@
           @change="previewImage"
           accept="image/*"
           required
-        
         />
+     
+   
              <div v-if=" ToDo.image != null">
                 <img class="preview" height="268" width="356" :src="ToDo.image">
                
@@ -67,6 +69,7 @@
 
 <script>
 import { db , fb} from "../firebase";
+
 export default {
   data() {
     return { 
@@ -92,12 +95,12 @@ export default {
       
     });
 },
- 
   methods: {
+
      deleteToDo(id) {
     db.collection("New").doc(id).delete();
   },
-      previewImage  (e) {
+      previewImage(e) {
          let file = e.target.files[0];
          var storageRef = fb.storage().ref('PhotoGallery'+file.name);
      let uploadTask = storageRef.put(file);
@@ -113,41 +116,27 @@ export default {
                  
          console.log('File available at', downloadURL);
            });
-       });
-
-       
+       }); 
   },
  
-   async addItem() {
-      if(this.ToDo){
-  
+   async addItem() { 
      db.collection("New").add(this.ToDo)
-     .then(function(docRef){
-       console.log("document written with Id ", docRef.id)
-         this.ToDo = {
-               name: "",
-               price: "",
-               des: "",
-               image:null
-    };
-    
-     })
-      .catch(function(error){
-       console.log("document written with Id ", error)
-     })
-      }   
-    },
-      
-    
+       this.ToDo.name = "";
+         this.ToDo.price = "";
+         this.ToDo.des = "";
+          this.ToDo.image = null;
+    // .then(function(docRef){
+      // console.log("document written with Id ", docRef.id)
+        
+    // })
+    //  .catch(function(error){
+    //   console.log("document written with Id ", error)
+   //  })
   },
-  deleteToDo(id) {
-    db.collection("New").docRef(id).delete();
-  },
-
   firestore: {
     New: db.collection("New"),
   },
-
+  }
 }
 
 </script>
