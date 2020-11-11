@@ -209,6 +209,6 @@ methods:{
 }
 .pictures{
     width: 400px;
-    height: 300px;
+    height: 511px;
 }
 </style>
