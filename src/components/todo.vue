@@ -1,84 +1,106 @@
 <template>
   <div class="container text-white">
-    <form class="d-flex justify-content-between py-3">
-      <div class="">
+    <form class="hei container " @submit.prevent="addItem">
+      <div class="d-flex flex-column">
         <input
-          class="border-0 rounded-pill bg-light justify-content-center"
+          class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New Todo"
-          v-model="newItem"
+          v-model="ToDo.name"
+          required
         />
         <input
-          class="border-0 rounded-pill bg-light justify-content-center"
+          class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New Toprice"
-          v-model="newPrice"
+          v-model="ToDo.price"
+          required
         />
         <input
-          class="border-0 rounded-pill bg-light justify-content-center"
+          class="border-0 rounded-rounded py-1 mb-4 bg-light justify-content-center"
           placeholder="New ToDes"
-          v-model="newDes"
+          v-model="ToDo.des"
+          required
         />
-        <h1>upload photo</h1>
-        <input
+           <input
           type="file"
           ref="input1"
           @change="previewImage"
           accept="image/*"
+          required
+        
         />
-             <div v-if="image != null ">
-                <img class="preview" height="268" width="356" :src="image">
+             <div v-if=" ToDo.image != null">
+                <img class="preview" height="268" width="356" :src="ToDo.image">
                
-               </div>             
+             </div> 
+                
       </div>
-      <div class="">
+      <div class=" mb-4">
         <button
-          class="text-warning border-0 px-4 rounded-pill bg-light"
-          @click="addItem"
+          class="text-white border-0 py-2 border-rounded container back"
+         type="submit"
         >
           Add
         </button>
       </div>
     </form>
-    <div
-      class="d-flex justify-content-between py-3 border p-2"
-      v-for="ToDo in ToDos"
-      :key="ToDo.id"
-    >
-      <div class="">{{ ToDo.name }} , {{ ToDo.price }}</div>
-      <div class="">
-        <button class="btn-danger" @click="deleteToDo(ToDo.id)">delete</button>
-      </div>
-    </div>
+    <div class="container mb-2 ">
+        <div class="row d-flex bg-white"  v-for=" ToDo in New" :key="ToDo.id" style="margin-bottom:50px; ">
+            <div class="col-md-4 col-lg-4 col-sm-4" >
+                <img :src="ToDo.image"  width="400px" height="300px" class="newpictures">
+                
+            </div>
+            <div class="col-md-8 col-lg-8 col-sm-8" >
+                <div class="color centerText mt-5"  >
+                    <h2 class="centeralblue"> {{ ToDo.name }}</h2>
+                    
+                        <h3 class="mt-3 centerText centeral"> {{ ToDo.des }}</h3>
+                            <div class="centerbutton1">
+                              <button class="centerbutton text-white pr-5 pl-5 pt-1 pb-1 border-0 border-rounded back" @click="deleteToDo(ToDo.id)">delete</button>
+                            </div> 
+                </div>
+            </div>
+        </div>
+    </div>  
   </div>
+   
 </template>
 
 <script>
-import { db, fb} from "../firebase";
+import { db , fb} from "../firebase";
 export default {
   data() {
-    return {
-      ToDos: [],
-      newItem: "",
-      newPrice: "",
-      newDes: "",
-     image : "",
-     
+    return { 
+      New:[],
+      ToDo:{
+      name: "",
+      price: "",
+      des: "",
+      image :null
+      },
+  
     };
   },
-  created() {
-    db.collection("ToDos").onSnapshot((querySnapshot) => {
-      this.ToDos = [];
-      querySnapshot.forEach((doc) => {
-        var x = doc.data();
-        x.id = doc.id;
-        this.ToDos.push(x);
-      });
+  created(){
+  db.collection('New')
+    .onSnapshot((querySnapshot) => {
+        this.New =[];
+        querySnapshot.forEach((doc)=>{
+            var x= doc.data()
+            x.id=doc.id
+            this.New.push(x);
+        });
+      
     });
-  },
+},
+ 
   methods: {
-       previewImage(e) {
+     deleteToDo(id) {
+    db.collection("New").doc(id).delete();
+  },
+      previewImage  (e) {
          let file = e.target.files[0];
          var storageRef = fb.storage().ref('PhotoGallery'+file.name);
-      let uploadTask =   storageRef.put(file);
+     let uploadTask = storageRef.put(file);
        uploadTask.on('state_changed',function()  {
         
      }, () => {
@@ -86,39 +108,43 @@ export default {
        }, () =>{
              // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            this.image = downloadURL;
-              
-            this.ToDos.image.push(downloadURL);
+         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.ToDo.image = downloadURL; 
+                 
          console.log('File available at', downloadURL);
            });
        });
-
-         console.log(e.target.files[0])
+       
   },
  
-    async addItem() {
+   async addItem() {
+      if(this.ToDo){
+  
+     db.collection("New").add(this.ToDo)
+     .then(function(docRef){
+       console.log("document written with Id ", docRef.id)
+         this.ToDo = {
+               name: "",
+               price: "",
+               des: "",
+               image:null
+    };
     
-      if (this.newItem)
-        await db
-          .collection("ToDos")
-          .add({ name: this.newItem, price: this.newPrice, des: this.newDes , img:this.image });
-           
-      this.newItem = "";
-      this.newPrice = "";
-      this.newDes = "";
-      this.image = null ;
-      console.log(this.image )
+     })
+      .catch(function(error){
+       console.log("document written with Id ", error)
+     })
+      }   
     },
+      
+    
   },
   deleteToDo(id) {
-    db.collection("ToDos").doc(id).delete();
+    db.collection("New").docRef(id).delete();
   },
-
   firestore: {
-    ToDos: db.collection("ToDos"),
+    New: db.collection("New"),
   },
- 
 }
 </script>
 
@@ -127,5 +153,31 @@ export default {
   text-align: center;
   color: orange;
   border: none;
+}
+.hei{
+  width:50%
+}
+.back{
+  background-color:orange;
+}
+.color{
+  color:orange;
+}
+.newpictures{
+  padding: 0.5rem;
+}
+.centeralblue{
+  color: blue;
+}
+.centeral{
+  color: black;
+}
+.centerbutton{ 
+  background-color: red;
+}
+.centerbutton1{
+  margin: 3rem !important;
+  font-size: 1.2rem;
+
 }
 </style>

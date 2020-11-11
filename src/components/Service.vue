@@ -6,7 +6,7 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/programmering.jpg')" class="rounded-0 ">
+                                <b-card-img :src="require('../assets/programmering.jpg')" class="rounded-0 pictures">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
@@ -32,7 +32,7 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/itservis.jpg')" class="rounded-0 ">
+                                <b-card-img :src="require('../assets/itservis.jpg')" class="rounded-0 pictures">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
@@ -61,7 +61,7 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/itsäkerhet.jpg')" class="rounded-0 ">
+                                <b-card-img :src="require('../assets/itsäkerhet.jpg')" class="rounded-0 pictures">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
@@ -88,7 +88,7 @@
                     <b-card no-body class="overflow-hidden">
                         <b-row no-gutters>
                             <b-col md="6">
-                                <b-card-img :src="require('../assets/redovisning.jpg')" class="rounded-0 ">
+                                <b-card-img :src="require('../assets/redovisning.jpg')" class="rounded-0 pictures">
                                 </b-card-img>
                             </b-col>
                             <b-col md="6">
@@ -211,5 +211,9 @@ export default {
 <style scoped>
 .centerText{
     text-align: center
+}
+.pictures{
+    width: 511px;
+    height: 300px;
 }
 </style>
