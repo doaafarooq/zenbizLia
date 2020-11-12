@@ -145,19 +145,23 @@ methods:{
   },
  
    async addItem() {
-      if(this.ToDo){
+   
   
      db.collection("New").add(this.ToDo)
+      this.ToDo.name = "",
+       this.ToDo.price = "",
+        this.ToDo.des = "",
+         this.ToDo.image = null
      .then(function(docRef){
        console.log("document written with Id ", docRef.id)
-       this.ToDo = "";
+     
     
      
      })
       .catch(function(error){
        console.log("document written with Id ", error)
      })
-      }   
+    
     },
       
     

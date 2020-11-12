@@ -22,16 +22,15 @@
         />
            <input
           type="file"
+         
           ref="input1"
           @change="previewImage"
           accept="image/*"
           required
-        
         />
-             <div v-if=" ToDo.image != null">
-                <img class="preview" height="268" width="356" :src="ToDo.image">
-               
-             </div> 
+          
+                <img class="preview" height="268" width="356" :src="ToDo.image">   
+        
                 
       </div>
       <div class=" mb-4">
@@ -118,9 +117,13 @@ export default {
   },
  
    async addItem() {
-      if(this.ToDo){
-  
+     
      db.collection("New").add(this.ToDo)
+      this.ToDo.name = "";
+      this.ToDo.price = "";
+      this.ToDo.des = "";
+      this.ToDo.image =null
+      
      .then(function(docRef){
        console.log("document written with Id ", docRef.id)
          this.ToDo = {
@@ -134,11 +137,13 @@ export default {
       .catch(function(error){
        console.log("document written with Id ", error)
      })
-      }   
-    },
       
+    },
     
   },
+  click1() {
+  this.$refs.input1.click()   
+},
   deleteToDo(id) {
     db.collection("New").docRef(id).delete();
   },
