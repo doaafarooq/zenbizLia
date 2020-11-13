@@ -22,15 +22,17 @@
         />
            <input
           type="file"
-         
+              style="display: none"
           ref="input1"
           @change="previewImage"
           accept="image/*"
           required
         />
-          
+                   <button @click="click1">choose photo</button>
+ 
+             <div v-if="ToDo.image!= null">
                 <img class="preview" height="268" width="356" :src="ToDo.image">   
-        
+             </div> 
                 
       </div>
       <div class=" mb-4">
@@ -96,6 +98,9 @@ export default {
      deleteToDo(id) {
     db.collection("New").doc(id).delete();
   },
+    click1() {
+  this.$refs.input1.click()   
+},
       previewImage  (e) {
          let file = e.target.files[0];
          var storageRef = fb.storage().ref('PhotoGallery'+file.name);
@@ -121,23 +126,8 @@ export default {
      db.collection("New").add(this.ToDo)
       this.ToDo.name = "";
       this.ToDo.price = "";
+       this.ToDo.image =null;
       this.ToDo.des = "";
-      this.ToDo.image =null
-      
-     .then(function(docRef){
-       console.log("document written with Id ", docRef.id)
-         this.ToDo = {
-               name: "",
-               price: "",
-               des: "",
-               image:null
-    };
-    
-     })
-      .catch(function(error){
-       console.log("document written with Id ", error)
-     })
-      
     },
     
   },
