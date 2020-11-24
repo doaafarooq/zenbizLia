@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "emailjs-com": "^2.6.3",
     "firebase": "^7.23.0",
+    "firebaseui": "^4.7.1",
     "sweetalert2": "^10.5.0",
     "vue": "^2.6.12",
     "vue-router": "^3.2.0"

@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import { BootstrapVue } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import firebase from 'firebase'
+import VueRouter from 'vue-router'
 
-Vue.use(BootstrapVue)
-Vue.config.productionTip = false
+import router from './router'
+
+import {firebaseConfig} from './helpers/firebaseConfig'
+
+Vue.use(VueRouter)
 
 new Vue({
   router,
+  created(){
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(user){
+        this.$router.push('/success')
+      }else{
+        this.$router.push('/auth')
+      }
+    });
+  },
+  el: '#app',
   render: h => h(App)
-}).$mount('#app')
+});
