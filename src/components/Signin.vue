@@ -64,9 +64,13 @@ export default {
    base_provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
       base_provider.addScope('profile');
        base_provider.addScope('email');
+       auth.languageCode = 'pt';
+       base_provider.setCustomParameters({
+          prompt: 'select_account'
+});
     auth.signInWithPopup(base_provider).then(function(result){
-      const token = result.credential.accessToken;
-     const user = result.user;
+      let token = result.credential.accessToken;
+     let user = result.user;
      console.log( 'sucess google account' + result + token + user)
         
      }).then( user => {

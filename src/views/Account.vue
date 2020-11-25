@@ -26,6 +26,8 @@ data (){
 methods: {
 logout :function(){
     auth.signOut().then(() => {
+        
+         
         this.$router.push('/Login')
 
     })
