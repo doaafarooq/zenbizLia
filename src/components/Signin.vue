@@ -26,20 +26,22 @@
      </div>
      
       <button  @click="googleSignIn()"> Goggle SignIN</button>
+          <button  @click="microsoftSignIn()"> microsoftSignIn SignIN</button>
   </div>
   
 </template>
 
 <script>
 
-import { auth } from '../firebase'
+import {  auth } from '../firebase'
 import firebase from 'firebase'
 export default {
   data (){
     return {
       email:'',
       password :'',
-     auth:''
+     auth:'',
+     OAuthAccessToken :''
     }
   },
  methods: {
@@ -81,9 +83,34 @@ export default {
       console.log(err)
       console.log("faild to do ")
      })
+  },
+  microsoftSignIn (){
+  const provider = new firebase.auth.OAuthProvider('microsoft.com');
+  provider.setCustomParameters({
+       prompt: 'consent',
+       login_hint: 'user@firstadd.onmicrosoft.com',
+        tenant: 'f20eddbc-e4e5-4c15-abb0-5198b25ec5d8',
+       client_id :'fdaf4852-e243-4400-b083-229f33838b20',
+       redirect_url :'https://zebnizlia.firebaseapp.com/__/auth/handler',
+      // response_type :'',
+      // scope:''
+
+});
+provider.addScope('mail.read');
+provider.addScope('calendars.read');
+auth.signInWithPopup(provider)
+      .then(function(result) {
+        console.log(result)
+       // if (result.credential.accessToken) {
+         // this.OAuthAccessToken = result.credential.accessToken;
+         // console.log("token ", result.credential.accessToken);
+       // }
+      })
+      .catch(function(error) {
+        console.log("fail ", error);
+      });
   }
-  
-}
+  }
 }
 </script>
 
