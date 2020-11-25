@@ -2,13 +2,14 @@
   <div>
   <div class="container bg-white wd rounded" >
     <div class="d-flex flex-column justify-content-center align-items-center" >
-        <h3 class=" text-dark mt-2">signin</h3>
+        <h2 class=" text-dark mt-4 mb-5">Sign in</h2>
         <form class=""  action="" @submit.prevent="signUp">
            <label class="text-dark" > Enter your email </label><br>
-           <input class="px-4 mb-4" type="text" v-model="email" placeholder=" enter your Email" required><br>
+           <input class="px-4 mb-4 input1" type="text" v-model="email" placeholder=" enter your Email" required><br>
            <label class="text-dark"> Enter your password </label><br>
-           <input class="px-4 mb-4" type="password" v-model="password" placeholder=" enter your password "  required><br>
-           <button class="mb-4" type="submit">sign in</button>
+           <input class="px-4 mb-4 input1" type="password" v-model="password" placeholder=" enter your password "  required><br>
+           <div class="class1"><button class="mb-4 button1" type="submit">Sign in</button></div>
+           
              <div class="signup-buttons">
         <div id="fb-root" class=" "></div>
         <a href="#" class="google-signup " @click.prevent="googleSignIn()">
@@ -17,19 +18,21 @@
         </a>
        </div>
         </form>
-          <div class="footer">
-               <p class="text-dark">Don't have an account? <a  @click="goto"> Create one now</a> </p>
+          <div class="mt-2 ml-5 mb-3 footer">
+               <p class="text-dark">Don't have an account? <a  @click="goto"><button class="button3">Create one now</button></a> </p>
           </div>
+          <button @click=" microsoftSignIn ()"> microsoft login </button>
+          <button class="btn btn-primary" @click="signInFacebook()"> facebook </button>
   
     </div>
        
      </div>
      
-      <button  @click="googleSignIn()"> Goggle SignIN</button>
-          <button  @click="microsoftSignIn()"> microsoftSignIn SignIN</button>
+    
   </div>
   
 </template>
+
 
 <script>
 
@@ -98,17 +101,49 @@ export default {
 });
 provider.addScope('mail.read');
 provider.addScope('calendars.read');
-auth.signInWithPopup(provider)
-      .then(function(result) {
-        console.log(result)
+ auth.signInWithPopup(provider).then(function(result){
+      let token = result.credential.accessToken;
+     let user = result.user;
+     console.log( 'sucess  microsoft account' + result + token + user)
+        
+     }).then( user => {
+     this.$router.push('/Account');
+     console.log(user)
+   }).catch(function(err){
+      alert('oops' + err.message)
+      console.log(err)
+      console.log("faild to do ")
+//auth.signInWithPopup(provider)
+  //    .then(function(result) {
+    //    console.log(result)
        // if (result.credential.accessToken) {
          // this.OAuthAccessToken = result.credential.accessToken;
          // console.log("token ", result.credential.accessToken);
        // }
-      })
-      .catch(function(error) {
-        console.log("fail ", error);
+    //  })
+      //.catch(function(error) {
+       // console.log("fail ", error);
       });
+  },
+  signInFacebook (){
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.setCustomParameters({
+             auth_type : 'reauthenticate',
+           
+});
+    auth.signInWithPopup(provider).then(function(result){
+      let token = result.credential.accessToken;
+     let user = result.user;
+     console.log( 'sucess facebook account' + result + token + user)
+        
+     }).then( user => {
+     this.$router.push('/Account');
+     console.log(user)
+   }).catch(function(err){
+      alert('oops' + err.message)
+      console.log(err)
+      console.log("faild to do ")
+     })
   }
   }
 }
@@ -118,5 +153,34 @@ auth.signInWithPopup(provider)
 .wd{
   width:50%;
 }
+.class1{
+  text-align: center;
+}
+.button1{
+  
+  border: 1px solid transparent;
+  background-color: blue;
+  color: white;
+  padding: 0.5rem 3rem;
+  border-radius: 5px;
+  margin: 2rem 0 0 0;
+}
+.button1:hover{
+  background-color: rgb(70,130,180);
+}
+.button3{
+  background-color: white;
+  color: blue;
+  border: 1px solid transparent;
 
+}
+.button3:hover{
+  background-color: white;
+  color: rgb(0,0,139);
+  border: 1px solid transparent;
+
+}
+.input1{
+  
+}
 </style>

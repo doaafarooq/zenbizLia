@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="mt-3 ml-3">
       <div class="text-white">{{currentUser}} </div>
-     <button v-on:click="logout"> logout </button>
+     <button class="mt-2" v-on:click="logout"> logout </button>
   </div>
   
 </template>
