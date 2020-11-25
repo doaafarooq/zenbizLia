@@ -11,6 +11,13 @@
 
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
+                                             <b-button
+                            @click="login"
+                            size="sm"
+                            class="my-2 mr-2 my-sm-0"
+                        >login
+                         
+                        </b-button>
                         <b-button
                             @click="modaldata2('Kontrollera Bokningen', 'success')"
                             size="sm"
@@ -190,6 +197,9 @@ export default {
         }
     },
     methods: {
+        login (){
+            this.$router.push('/Login');
+        },
 
         sendEmail: (e) => {
       emailjs.sendForm('gmai', 'template_ytz51qg', e.target, 'user_1MQXW3ydVjgKS3jeUlZUd')
